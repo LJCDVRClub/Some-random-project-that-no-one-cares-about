@@ -25,7 +25,9 @@ public class PickUpObject : MonoBehaviour
             Debug.Log("You have pressed the Trigger!");
     }
 
-
+    public bool check;
+    public string Scene2;
+    
     private void OnTriggerStay(Collider col)
     {
         Debug.Log("You have collided with " + col.name + " and activated OnTriggerStay.");
@@ -36,9 +38,9 @@ public class PickUpObject : MonoBehaviour
             col.attachedRigidbody.isKinematic = false;
             col.attachedRigidbody.position = trackedObj.GetComponent<Rigidbody>().position;
             col.attachedRigidbody.rotation = trackedObj.GetComponent<Rigidbody>().rotation;
-
-            if (!(lightstick1.isKinematic || lightstick2.isKinematic))
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Scene 2");
+            if (check)
+                moveOn();
+           
         }
         
         if ((device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger) || device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger)))
@@ -50,6 +52,12 @@ public class PickUpObject : MonoBehaviour
 
 
         }
+    }
+
+    private void moveOn()
+    {
+        if (!(lightstick1.isKinematic || lightstick2.isKinematic))
+            UnityEngine.SceneManagement.SceneManager.LoadScene(Scene2);
     }
     
     }
